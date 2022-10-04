@@ -5,10 +5,10 @@
         <q-space></q-space>
 
         <q-img
-          class="q-mt-md"
+          class="q-mt-xs"
           src="~assets/bleep_full.png"
           fit="contain"
-          style="height: 100px; width: 110px"
+          style="height: 100px; width: 100px"
         ></q-img>
         <!-- <q-toolbar-title class="text-blue"> Bleep </q-toolbar-title> -->
         <q-space></q-space>
@@ -36,6 +36,6 @@ export default defineComponent({
 
 <style scoped>
 .toolbar {
-  height: 70px;
+  height: 80px;
 }
 </style>
