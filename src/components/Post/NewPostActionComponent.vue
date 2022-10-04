@@ -1,18 +1,18 @@
 <template>
   <div>
-    <q-card class="q-pa-md" flat bordered>
-      <div class="row">
+    <q-card class="q-pa-none" flat bordered>
+      <div class="row q-ma-md">
         <div>
           <q-avatar style="border-radius: 25px">
             <img src="~assets/profile_pic.png" />
           </q-avatar>
         </div>
-        <div class="col q-ml-md q-mt-md q-mb-lg q-pb-sm">
-          <p class="q-ma-none"><b>Yadev Jayachandran</b></p>
+        <div class="col q-ml-md q-mt-sm q-mb-sm q-pb-sm">
+          <h6 class="q-ma-none text-accent"><b>James Franco</b></h6>
         </div>
       </div>
-      <div class="row">
-        <h4 class="q-ma-none"><b>What's on your mind?</b></h4>
+      <div class="row action-holder q-pa-md">
+        <h5 class="q-ma-none text-accent"><b>What's on your mind?</b></h5>
         <q-space></q-space>
         <q-btn
           class="text-white action-button"
@@ -57,7 +57,11 @@ export default {
 </script>
 <style scoped>
 .action-button {
-  background: rgb(0, 153, 255);
+  background: #2675a3;
+  border-radius: 20px;
+}
+.action-holder {
+  background: #ebf6fc;
   border-radius: 20px;
 }
 </style>
