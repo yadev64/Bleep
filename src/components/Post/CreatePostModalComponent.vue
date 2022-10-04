@@ -112,21 +112,57 @@
             </p>
           </div>
         </q-card-section>
+
+        <q-card-section class="q-mb-md" v-if="imageData">
+          <q-card
+            flat
+            class="image"
+            style="max-width: 500px; width: 100%; margin: auto"
+          >
+            <q-card-section class="q-pa-none q-ma-none">
+              <div class="q-pa-none q-ma-none">
+                <q-img
+                  :src="imageData"
+                  class="q-pa-none q-ma-none image"
+                  style="
+                    cursor: pointer;
+                    max-width: 500px;
+                    width: 100%;
+                    border-radius: 10px;
+                  "
+                >
+                </q-img>
+                <div
+                  class="icon-area close-icon cursor-pointer flex flex-center"
+                  icon="close"
+                  flat
+                  @click="removeImage()"
+                >
+                  <q-icon name="close"></q-icon>
+                </div>
+              </div>
+            </q-card-section>
+          </q-card>
+        </q-card-section>
+
         <hr class="solid q-ma-none" />
         <q-card-actions class="q-ma-sm">
           <div
-            class="
-              icon-area
-              cursor-pointer
-              flex flex-center
-              q-mr-lg q-ml-sm
-              v-ripple
-            "
+            class="icon-area cursor-pointer flex flex-center q-mr-lg q-ml-sm"
+            @click="choosePicture"
           >
+            <input
+              hidden
+              class="file-input q-pa-none q-ma-none"
+              ref="fileInput"
+              style="width: 30px; height: 30px"
+              type="file"
+              @input="onSelectFile"
+            />
             <q-icon name="image"></q-icon>
           </div>
 
-          <div class="icon-area cursor-pointer flex flex-center v-ripple">
+          <div class="icon-area cursor-pointer flex flex-center">
             <q-icon name="emoji_emotions"></q-icon>
           </div>
 
@@ -162,12 +198,15 @@ export default {
   name: "CreatePostModalComponent",
   setup() {
     let $store = useStore();
+    const fileInput = ref(null);
 
     const postData = ref({
       content: "",
       is_public: true,
       image: null,
     });
+
+    const imageData = ref(null);
 
     const modalStatus = computed({
       get: () => $store.state.posts.modal_status,
@@ -180,12 +219,40 @@ export default {
       postData.value.is_public = passedStatus;
     };
 
+    const choosePicture = () => {
+      fileInput.value.click();
+    };
+
+    let imageHolder = null;
+
+    const onSelectFile = () => {
+      const input = fileInput.value;
+      imageHolder = input.files;
+      if (imageHolder && imageHolder[0]) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          imageData.value = e.target.result;
+        };
+        reader.readAsDataURL(imageHolder[0]);
+      }
+    };
+
+    const removeImage = () => {
+      imageHolder = null;
+      imageData.value = null;
+    };
+
     const submitData = () => {};
 
     return {
       modalStatus,
       postData,
+      fileInput,
       onItemClick,
+      imageData,
+      choosePicture,
+      onSelectFile,
+      removeImage,
       submitData,
     };
   },
@@ -221,5 +288,13 @@ hr.solid {
   width: 35px;
   border-radius: 20px;
   background: #f2f2f2;
+}
+
+.close-icon {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  color: white;
+  background: #3a4e5960;
 }
 </style>
