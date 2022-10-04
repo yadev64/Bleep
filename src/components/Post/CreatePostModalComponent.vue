@@ -101,6 +101,7 @@
             flat
             borderless
             type="textarea"
+            maxlength="250"
             class="textarea"
           />
         </q-card-section>
@@ -168,7 +169,7 @@
 
           <q-space></q-space>
           <q-btn
-            class="text-white action-button"
+            class="text-white action-button bg-primary"
             flat
             @click="
               () => {
@@ -194,9 +195,13 @@
 <script>
 import { ref, computed, watch } from "vue";
 import { useStore } from "vuex";
+import { useQuasar } from "quasar";
+
 export default {
   name: "CreatePostModalComponent",
   setup() {
+    const $q = useQuasar();
+
     let $store = useStore();
     const fileInput = ref(null);
 
@@ -242,7 +247,37 @@ export default {
       imageData.value = null;
     };
 
-    const submitData = () => {};
+    const validateData = () => {
+      if (imageData.value) {
+        postData.value.image = imageData.value;
+      }
+
+      if (!postData.value.content) {
+        $q.notify({
+          type: "negative",
+          message: "Please add some content to proceed.",
+          position: "bottom-right",
+        });
+
+        return false;
+      }
+
+      return true;
+    };
+
+    const submitData = () => {
+      if (validateData()) {
+        $store.dispatch("posts/storePostData", postData.value);
+
+        $q.notify({
+          type: "positive",
+          message: "Posted successfully :)",
+          position: "bottom-right",
+        });
+
+        modalStatus.value = false;
+      }
+    };
 
     return {
       modalStatus,
@@ -279,7 +314,6 @@ hr.solid {
 }
 
 .action-button {
-  background: #2675a3;
   border-radius: 20px;
 }
 

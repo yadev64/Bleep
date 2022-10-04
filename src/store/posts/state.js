@@ -1,5 +1,6 @@
 export default function () {
   return {
-    modal_status: false
+    modal_status: false,
+    posts: []
   }
 }
