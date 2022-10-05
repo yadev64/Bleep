@@ -15,7 +15,7 @@
         <h5 class="q-ma-none text-accent"><b>What's on your mind?</b></h5>
         <q-space></q-space>
         <q-btn
-          class="text-white action-button"
+          class="text-white action-button bg-primary"
           flat
           @click="
             () => {
@@ -57,7 +57,6 @@ export default {
 </script>
 <style scoped>
 .action-button {
-  background: #2675a3;
   border-radius: 20px;
 }
 .action-holder {
