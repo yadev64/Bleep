@@ -1,13 +1,15 @@
 ![bleep_full](https://user-images.githubusercontent.com/21107275/193960969-dea26b34-071b-4ca6-a9f2-63ab2885d53d.png)
 
 
-Current version: v0.01 alpha
+**Current version: v0.01 alpha**
 
 Bleep is a micro tweeting (bleeping) platform build using Vue 3. This is just a front end project. Feel free to clone it and hook it up with a good backend and deploy ut :)
 
 To try out the platform and build on top of it, clone this repo and read on! This document will provide information regarding installation and usage.
 
-Tech stack:
+**Quick preview** (Netlify) : [Netlify URL](https://bleepsyadev.netlify.app/)
+
+## Tech stack
 
 Front end
  - [Vue 3](https://v3.vuejs.org/)
