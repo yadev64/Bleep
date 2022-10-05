@@ -267,7 +267,7 @@ export default {
 
     const submitData = () => {
       if (validateData()) {
-        $store.dispatch("posts/storePostData", postData.value);
+        $store.commit("posts/storePostData", postData.value);
 
         $q.notify({
           type: "positive",
