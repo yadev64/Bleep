@@ -10,7 +10,7 @@ export function storePostData(state, post) {
     postTempObject.image = post.image ? post.image : null
     postTempObject.is_public = post.is_public ? post.is_public : false
 
-    postTempObject.likes = 0
+    postTempObject.likes = false
     postTempObject.id = state.posts.length
 
     state.posts.push(postTempObject)
