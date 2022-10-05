@@ -165,7 +165,14 @@
             <q-icon name="image"></q-icon>
           </div>
 
-          <div class="icon-area cursor-pointer flex flex-center">
+          <div
+            class="icon-area cursor-pointer flex flex-center"
+            @click="
+              () => {
+                emojiPopup = true;
+              }
+            "
+          >
             <q-icon name="emoji_emotions"></q-icon>
           </div>
 
@@ -191,16 +198,26 @@
         </q-card-actions>
       </q-card>
     </q-dialog>
+
+    <q-dialog v-model="emojiPopup">
+      <q-card class="q-pa-md" style="width: 200px; height: 300px">
+        <EmojiPicker :native="true" hide-group-icons @select="onSelectEmoji" />
+      </q-card>
+    </q-dialog>
   </div>
 </template>
 
 <script>
-import { ref, computed, watch } from "vue";
+import { ref, computed, watch, onMounted } from "vue";
 import { useStore } from "vuex";
 import { useQuasar } from "quasar";
+import EmojiPicker from "vue3-emoji-picker";
 
 export default {
   name: "CreatePostModalComponent",
+  components: {
+    EmojiPicker,
+  },
   setup() {
     const $q = useQuasar();
 
@@ -215,11 +232,31 @@ export default {
 
     const imageData = ref(null);
 
+    onMounted(() => {
+      loadDefaultData();
+    });
+
+    const loadDefaultData = () => {
+      postData.value = {
+        content: "",
+        is_public: true,
+        image: null,
+      };
+
+      imageData.value = null;
+    };
+
+    const emojiPopup = ref(false);
+
     const modalStatus = computed({
       get: () => $store.state.posts.modal_status,
       set: (val) => {
         $store.commit("posts/updateModalStatus", val);
       },
+    });
+
+    watch(modalStatus, () => {
+      loadDefaultData();
     });
 
     const user = computed(() => {
@@ -271,6 +308,11 @@ export default {
       return true;
     };
 
+    function onSelectEmoji(emoji) {
+      console.log(emoji);
+      postData.value.content += emoji.i;
+    }
+
     const submitData = () => {
       if (validateData()) {
         $store.commit("posts/storePostData", postData.value);
@@ -295,6 +337,8 @@ export default {
       choosePicture,
       onSelectFile,
       removeImage,
+      onSelectEmoji,
+      emojiPopup,
       submitData,
     };
   },
