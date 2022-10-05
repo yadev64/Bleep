@@ -4,11 +4,13 @@
       <div class="row q-ma-md">
         <div>
           <q-avatar style="border-radius: 25px">
-            <img src="~assets/profile_pic.png" />
+            <img :src="user.profile_pic" />
           </q-avatar>
         </div>
         <div class="col q-ml-md q-mt-sm q-mb-sm q-pb-sm">
-          <h6 class="q-ma-none text-accent"><b>James Franco</b></h6>
+          <h6 class="q-ma-none text-accent">
+            <b>{{ user.username }}</b>
+          </h6>
         </div>
       </div>
       <div class="row action-holder q-pa-md">
@@ -49,8 +51,13 @@ export default {
       },
     });
 
+    const user = computed(() => {
+      return $store.state.posts.user;
+    });
+
     return {
       modalStatus,
+      user,
     };
   },
 };
