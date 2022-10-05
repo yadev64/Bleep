@@ -13,6 +13,8 @@ export function storePostData(state, post) {
     postTempObject.likes = false
     postTempObject.id = state.posts.length
 
+    state.posts = state.posts.reverse()
     state.posts.push(postTempObject)
+    state.posts = state.posts.reverse()
   }
 }
